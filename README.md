@@ -22,6 +22,10 @@ npx serve .
 
 `vercel.json` enables clean URLs on Vercel: `/menu` serves `menu.html`, and `/menu.html` redirects to `/menu`.
 
+## SEO
+
+`src/build.js` also writes `sitemap.xml`, `robots.txt` and `site.webmanifest`, and adds canonical URLs, social-share tags and schema.org structured data (Restaurant, Menu, Person, breadcrumbs) to each page. All absolute URLs come from `SITE_URL` at the top of `src/build.js`; change it when the custom domain is live, rebuild and push.
+
 ## Structure
 
 - `*.html` – built pages (served as-is)
