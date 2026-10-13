@@ -62,8 +62,10 @@ module.exports = async function handler(req, res) {
   const date = parseDate(str(body.date, 10));
 
   const errors = [];
-  if (name.length < 2) errors.push("name");
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.push("email");
+  if (!/^[^\d@]{2,}\s+[^\d@]{2,}/.test(name)) errors.push("name");
+  if (!/^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i.test(email)) errors.push("email");
+  const digits = phone.replace(/\D/g, "");
+  if (phone && (!/^\+?[\d\s()-]+$/.test(phone) || digits.length < 10 || digits.length > 15)) errors.push("phone");
   if (!date) errors.push("date");
   if (!TIMES.includes(time)) errors.push("time");
   if (!GUESTS.includes(guests)) errors.push("guests");

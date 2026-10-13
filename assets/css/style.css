@@ -801,7 +801,7 @@ blockquote footer, blockquote cite {
 .field .req { color: var(--gold); }
 .field .hint { font-size: .95rem; color: var(--muted-light); margin: 0; }
 
-.field input, .field select, .field textarea {
+.field input:not([type="checkbox"]), .field select, .field textarea {
   width: 100%;
   min-height: 3rem;
   padding: .75rem .9rem;
@@ -823,16 +823,33 @@ blockquote footer, blockquote cite {
   padding-right: 2.5rem;
 }
 .field textarea { min-height: 7rem; resize: vertical; }
-.field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); outline: 1px solid var(--gold); outline-offset: 0; }
+.field input:not([type="checkbox"]):focus, .field select:focus, .field textarea:focus { border-color: var(--gold); outline: 1px solid var(--gold); outline-offset: 0; }
 .field [aria-invalid="true"] { border-color: #e39a8a; }
 .field .error { color: #f0b3a5; font-size: 1rem; margin: 0; }
 .field .error:empty { display: none; }
 
 .check { display: grid; grid-template-columns: auto 1fr; gap: .9rem; align-items: start; font-size: 1.05rem; }
-.check input {
-  width: 1.4rem; height: 1.4rem;
+.check input[type="checkbox"] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: none;
+  width: 1.5rem; height: 1.5rem;
   margin: .2rem 0 0;
-  accent-color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 0;
+  background: var(--ink) center / 72% no-repeat;
+  cursor: pointer;
+  transition: background-color .2s var(--ease);
+}
+.check input[type="checkbox"]:checked {
+  background-color: var(--gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%2313110e' stroke-width='2' stroke-linecap='square'/%3E%3C/svg%3E");
+}
+.check input[type="checkbox"]:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.check input[type="checkbox"][aria-invalid="true"] { border-color: #e39a8a; }
+.check label { cursor: pointer; }
+@media (forced-colors: active) {
+  .check input[type="checkbox"] { -webkit-appearance: auto; appearance: auto; }
 }
 
 .form-status {

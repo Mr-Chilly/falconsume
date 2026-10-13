@@ -102,18 +102,19 @@
           <legend>Your details</legend>
           <div class="field">
             <label for="name">Full name <span class="req" aria-hidden="true">*</span></label>
-            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error" maxlength="120">
             <p class="error" id="name-error"></p>
           </div>
           <div class="form-row form-row--2">
             <div class="field">
               <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error">
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error" maxlength="200">
               <p class="error" id="email-error"></p>
             </div>
             <div class="field">
               <label for="phone">Telephone</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" aria-describedby="phone-error">
+              <p class="error" id="phone-error"></p>
             </div>
           </div>
           <div class="field">
@@ -129,7 +130,7 @@
           </div>
           <div class="field">
             <label for="notes">Dietary requirements &amp; notes</label>
-            <textarea id="notes" name="notes" rows="4" aria-describedby="notes-hint"></textarea>
+            <textarea id="notes" name="notes" rows="4" aria-describedby="notes-hint" maxlength="2000"></textarea>
             <p class="hint" id="notes-hint">Including any allergies, intolerances or special occasions.</p>
           </div>
         </fieldset>

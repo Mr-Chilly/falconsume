@@ -177,9 +177,11 @@
   var summary = document.getElementById("error-summary");
   var result = document.getElementById("form-result");
 
+  var EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i;
   var rules = [
-    { id: "name", test: function (v) { return v.trim().length > 1; }, msg: "Please enter your full name." },
-    { id: "email", test: function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()); }, msg: "Please enter a valid email address." },
+    { id: "name", test: function (v) { return /^[^\d@]{2,}\s+[^\d@]{2,}/.test(v.trim()); }, msg: "Please enter your first and last name." },
+    { id: "email", test: function (v) { return EMAIL.test(v.trim()); }, msg: "Please enter a valid email address, for example name@example.com." },
+    { id: "phone", test: function (v) { v = v.trim(); return !v || (/^\+?[\d\s()-]+$/.test(v) && v.replace(/\D/g, "").length >= 10 && v.replace(/\D/g, "").length <= 15); }, msg: "Please enter a valid telephone number, or leave it blank." },
     { id: "date", test: function (v) { return !!v; }, msg: "Please choose an evening." },
     { id: "time", test: function (v) { return !!v; }, msg: "Please choose a seating." },
     { id: "guests", test: function (v) { return !!v; }, msg: "Please tell us how many guests." },
@@ -262,6 +264,19 @@
     result.hidden = false;
     result.focus();
   }
+
+  form.addEventListener("focusout", function (e) {
+    var r = rules.filter(function (x) { return x.id === e.target.id; })[0];
+    if (!r || e.target.type === "checkbox" || e.target.tagName === "SELECT") return;
+    if (!e.target.value.trim()) return;
+    setError(e.target, r.test(e.target.value, e.target) ? "" : r.msg);
+  });
+
+  form.addEventListener("change", function (e) {
+    if (e.target.getAttribute("aria-invalid") !== "true") return;
+    var r = rules.filter(function (x) { return x.id === e.target.id; })[0];
+    if (r && r.test(e.target.value, e.target)) setError(e.target, "");
+  });
 
   form.addEventListener("input", function (e) {
     if (e.target.getAttribute("aria-invalid") === "true") {
