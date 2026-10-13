@@ -14,6 +14,14 @@ node src/build.js
 
 No dependencies are needed beyond Node.js.
 
+To preview locally, serve the folder rather than opening the files directly (links use clean URLs such as `/menu`):
+
+```sh
+npx serve .
+```
+
+`vercel.json` enables clean URLs on Vercel: `/menu` serves `menu.html`, and `/menu.html` redirects to `/menu`.
+
 ## Structure
 
 - `*.html` – built pages (served as-is)

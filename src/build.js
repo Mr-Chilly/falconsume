@@ -5,6 +5,9 @@ const path = require("path");
 const SRC = path.join(__dirname, "pages");
 const OUT = path.join(__dirname, "..");
 
+// Clean URLs: Vercel serves menu.html at /menu (see vercel.json)
+const url = (file) => (file === "index.html" ? "/" : "/" + file.replace(/\.html$/, ""));
+
 const NAV = [
   ["index.html", "Home"],
   ["menu.html", "The Menu"],
@@ -37,7 +40,7 @@ const head = (p) => `<!DOCTYPE html>
 const header = (file) => `
 <header class="site-header">
   <div class="wrap site-header__inner">
-    <a class="brand" href="index.html"${file === "index.html" ? ' aria-current="page"' : ""}>
+    <a class="brand" href="/"${file === "index.html" ? ' aria-current="page"' : ""}>
       <img src="assets/img/logo-mark-cream.png" alt="" width="181" height="490">
       <span class="brand__name">fal-consumé</span>
     </a>
@@ -47,8 +50,8 @@ const header = (file) => `
     </button>
     <nav id="site-nav" class="site-nav" aria-label="Main">
       <ul>
-${NAV.map(([href, label]) => `        <li><a href="${href}"${href === file ? ' aria-current="page"' : ""}>${label}</a></li>`).join("\n")}
-        <li class="nav-cta"><a href="reservations.html"${file === "reservations.html" ? ' aria-current="page"' : ""}>Reservations</a></li>
+${NAV.map(([href, label]) => `        <li><a href="${url(href)}"${href === file ? ' aria-current="page"' : ""}>${label}</a></li>`).join("\n")}
+        <li class="nav-cta"><a href="/reservations"${file === "reservations.html" ? ' aria-current="page"' : ""}>Reservations</a></li>
       </ul>
     </nav>
   </div>
@@ -79,13 +82,13 @@ const footer = `
       <div>
         <h2>Explore</h2>
         <ul>
-${NAV.map(([href, label]) => `          <li><a href="${href}">${label}</a></li>`).join("\n")}
-          <li><a href="reservations.html">Reservations</a></li>
+${NAV.map(([href, label]) => `          <li><a href="${url(href)}">${label}</a></li>`).join("\n")}
+          <li><a href="/reservations">Reservations</a></li>
         </ul>
       </div>
     </div>
     <div class="site-footer__small">
-      <p>&copy; 2026 Fal-consumé. All rights reserved. &middot; <a href="mill.html#credits">Photography credits</a></p>
+      <p>&copy; 2026 Fal-consumé. All rights reserved. &middot; <a href="/mill#credits">Photography credits</a></p>
     </div>
   </div>
 </footer>
