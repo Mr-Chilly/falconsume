@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reservations — Fal-consumé</title>
+  <meta name="description" content="Request a reservation at Fal-consumé, East Mill, Belper. Open Thursday, Friday and Saturday, 8pm to 1am, from 1 January 2027.">
+  <meta name="theme-color" content="#13110e">
+  <meta property="og:title" content="Reservations — Fal-consumé">
+  <meta property="og:description" content="Request a reservation at Fal-consumé, East Mill, Belper. Open Thursday, Friday and Saturday, 8pm to 1am, from 1 January 2027.">
+  <meta property="og:image" content="assets/img/east-mill-tower.webp">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preload" href="assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo-mark-cream.png" alt="" width="181" height="490">
+      <span class="brand__name">fal-consumé</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="nav-toggle__bars" aria-hidden="true"></span>
+      <span class="nav-toggle__label">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">The Menu</a></li>
+        <li><a href="chef.html">The Chef</a></li>
+        <li><a href="mill.html">The Mill</a></li>
+        <li><a href="thanks.html">With Thanks</a></li>
+        <li class="nav-cta"><a href="reservations.html" aria-current="page">Reservations</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<section class="page-hero">
+  <div class="wrap">
+    <p class="eyebrow">Réservations</p>
+    <h1>Book &amp; calendar</h1>
+    <p class="lede">We serve on Thursday, Friday and Saturday evenings from 8pm until 1am. Every evening until Saturday 13 March 2027 is fully booked. Requests are now being accepted from Thursday 18 March.</p>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="cal-heading">
+  <div class="wrap booking-layout">
+    <div>
+      <h2 id="cal-heading" class="h-sub">Availability</h2>
+      <p class="muted">Select an evening marked <em>Request</em> to begin. Evenings that are fully booked may still be requested for the waiting list using the form.</p>
+
+      <div class="calendar" id="calendar">
+        <div class="calendar__head">
+          <button type="button" class="calendar__nav" id="cal-prev" aria-label="Previous month"><span aria-hidden="true">&#8592;</span></button>
+          <h3 class="calendar__title" id="cal-title" aria-live="polite">January 2027</h3>
+          <button type="button" class="calendar__nav" id="cal-next" aria-label="Next month"><span aria-hidden="true">&#8594;</span></button>
+        </div>
+        <table aria-labelledby="cal-title">
+          <thead>
+            <tr>
+              <th scope="col"><abbr title="Monday">Mon</abbr></th>
+              <th scope="col"><abbr title="Tuesday">Tue</abbr></th>
+              <th scope="col"><abbr title="Wednesday">Wed</abbr></th>
+              <th scope="col"><abbr title="Thursday">Thu</abbr></th>
+              <th scope="col"><abbr title="Friday">Fri</abbr></th>
+              <th scope="col"><abbr title="Saturday">Sat</abbr></th>
+              <th scope="col"><abbr title="Sunday">Sun</abbr></th>
+            </tr>
+          </thead>
+          <tbody id="cal-grid"></tbody>
+        </table>
+        <p class="calendar__summary" id="cal-summary"></p>
+        <ul class="legend">
+          <li><i class="l-booked" aria-hidden="true"></i> Fully booked</li>
+          <li><i class="l-open" aria-hidden="true"></i> Accepting requests</li>
+          <li><i class="l-closed" aria-hidden="true"></i> Closed</li>
+        </ul>
+        <noscript><p>The interactive calendar requires JavaScript. In short: every Thursday, Friday and Saturday from 1 January to 13 March 2027 is fully booked.</p></noscript>
+      </div>
+      <p id="cal-live" class="visually-hidden" aria-live="polite"></p>
+
+      <div class="notice">
+        <strong>A note on the season</strong>
+        Our eggs are gathered from wild peregrines on the morning of service. The menu follows the falcons, and Chef will always serve the finest of the day.
+      </div>
+    </div>
+
+    <div>
+      <h2 id="form-heading" class="h-sub">Request a reservation</h2>
+      <p class="muted">All tables are allocated by request. Completing this form does not guarantee a table. Fields marked <span aria-hidden="true">*</span><span class="visually-hidden">with an asterisk</span> are required.</p>
+
+      <div id="error-summary" class="error-summary" role="alert" tabindex="-1" hidden>
+        <h3>Please check the following</h3>
+        <ul></ul>
+      </div>
+
+      <form id="reservation-form" class="form" novalidate aria-labelledby="form-heading">
+        <fieldset>
+          <legend>Your evening</legend>
+          <div class="field">
+            <label for="date">Evening <span class="req" aria-hidden="true">*</span></label>
+            <select id="date" name="date" required aria-describedby="date-error">
+              <option value="">Choose an evening</option>
+            </select>
+            <p class="error" id="date-error"></p>
+          </div>
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="time">Seating <span class="req" aria-hidden="true">*</span></label>
+              <select id="time" name="time" required aria-describedby="time-error">
+                <option value="">Choose a time</option>
+                <option>8:00pm</option>
+                <option>8:30pm</option>
+                <option>9:00pm</option>
+                <option>9:30pm</option>
+                <option>10:00pm</option>
+              </select>
+              <p class="error" id="time-error"></p>
+            </div>
+            <div class="field">
+              <label for="guests">Guests <span class="req" aria-hidden="true">*</span></label>
+              <select id="guests" name="guests" required aria-describedby="guests-hint guests-error">
+                <option value="">Party size</option>
+                <option value="1 guest">1 guest</option>
+                <option value="2 guests">2 guests</option>
+                <option value="3 guests">3 guests</option>
+                <option value="4 guests">4 guests</option>
+                <option value="5 guests">5 guests</option>
+                <option value="6 guests">6 guests</option>
+              </select>
+              <p class="hint" id="guests-hint">For larger parties, please mention it below.</p>
+              <p class="error" id="guests-error"></p>
+            </div>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>Your details</legend>
+          <div class="field">
+            <label for="name">Full name <span class="req" aria-hidden="true">*</span></label>
+            <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error">
+            <p class="error" id="name-error"></p>
+          </div>
+          <div class="form-row form-row--2">
+            <div class="field">
+              <label for="email">Email <span class="req" aria-hidden="true">*</span></label>
+              <input id="email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="email-error">
+              <p class="error" id="email-error"></p>
+            </div>
+            <div class="field">
+              <label for="phone">Telephone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="occasion">Occasion</label>
+            <select id="occasion" name="occasion">
+              <option value="">None</option>
+              <option>Birthday</option>
+              <option>Anniversary</option>
+              <option>Proposal</option>
+              <option>Business</option>
+              <option>Birdwatching</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="notes">Dietary requirements &amp; notes</label>
+            <textarea id="notes" name="notes" rows="4" aria-describedby="notes-hint"></textarea>
+            <p class="hint" id="notes-hint">Including any allergies, intolerances or special occasions.</p>
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <div class="check">
+            <input id="terms" name="terms" type="checkbox" required aria-describedby="terms-error">
+            <label for="terms">I understand that every egg is gathered on the morning of service and graded by Chef, and that the menu follows the season. <span class="req" aria-hidden="true">*</span></label>
+          </div>
+          <p class="error" id="terms-error"></p>
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn--solid">Send reservation request</button>
+        </div>
+      </form>
+
+      <div id="form-result" class="form-status" tabindex="-1" role="status" hidden></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="site-footer__grid">
+      <div class="site-footer__logo">
+        <img src="assets/img/logo-full-cream.png" alt="fal-consumé" width="403" height="579">
+      </div>
+      <div>
+        <h2>Find us</h2>
+        <address>
+          The Top Floor<br>
+          East Mill, Bridge Foot<br>
+          Belper, Derbyshire<br>
+          Derwent Valley Mills World Heritage Site
+        </address>
+      </div>
+      <div>
+        <h2>Service</h2>
+        <p>Thursday, Friday &amp; Saturday<br>8pm until 1am<br>From 1 January 2027</p>
+        <p class="muted">Closed Sunday to Wednesday, so that the falcons may rest.</p>
+      </div>
+      <div>
+        <h2>Explore</h2>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="menu.html">The Menu</a></li>
+          <li><a href="chef.html">The Chef</a></li>
+          <li><a href="mill.html">The Mill</a></li>
+          <li><a href="thanks.html">With Thanks</a></li>
+          <li><a href="reservations.html">Reservations</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__small">
+      <p>&copy; 2026 Fal-consumé. All rights reserved. &middot; <a href="mill.html#credits">Photography credits</a></p>
+    </div>
+  </div>
+</footer>
+<script src="assets/js/main.js" defer></script>
+</body>
+</html>
