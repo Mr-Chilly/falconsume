@@ -23,4 +23,18 @@ No dependencies are needed beyond Node.js.
 - `assets/img/` – photography and logos; credits on `mill.html#credits`
 - `12398.jpg`, `12399.jpg` – original logo artwork
 
-The reservation form does not send data anywhere yet; it needs a form backend before launch.
+- `api/reserve.js` – Vercel Function that emails reservation requests
+
+## Reservation requests
+
+The booking form posts to `/api/reserve`, which validates the request and emails it to the restaurant via [Resend](https://resend.com). Requests for fully booked evenings are marked as waiting-list entries. Replying to the email replies to the guest.
+
+Set these in Vercel → Project → Settings → Environment Variables, then redeploy:
+
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key from resend.com |
+| `RESERVATIONS_TO` | Inbox for requests (comma-separate for several) |
+| `RESERVATIONS_FROM` | Sender on a domain verified in Resend, e.g. `Fal-consumé <reservations@yourdomain>` |
+
+Without `RESERVATIONS_FROM`, Resend's test sender is used, which only delivers to the email address on your Resend account.

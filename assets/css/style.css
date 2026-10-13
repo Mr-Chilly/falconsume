@@ -1045,3 +1045,8 @@ main:focus { outline: none; }
 .egg-facts dd small { display: block; font-size: 1.02rem; color: var(--muted-dark); margin-top: .6rem; line-height: 1.5; }
 .figure--square img { aspect-ratio: 1 / 1; }
 .nowrap { white-space: nowrap; }
+
+/* Spam honeypot: off-screen, never shown to people */
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.form-privacy { margin-top: 1rem; font-size: .95rem; color: var(--muted-light); }
+.btn:disabled { opacity: .6; cursor: progress; }

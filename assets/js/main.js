@@ -204,6 +204,7 @@
 
     if (errors.length) {
       summary.hidden = false;
+      summary.querySelector("h3").textContent = "Please check the following";
       summary.querySelector("ul").innerHTML = errors.map(function (r) {
         return '<li><a href="#' + r.id + '">' + r.msg + "</a></li>";
       }).join("");
@@ -212,25 +213,55 @@
     }
     summary.hidden = true;
 
-    var d = fromKey(document.getElementById("date").value);
-    var isWait = status(d) === "booked";
-    var ref = "FC-27-" + String(Math.floor(1000 + Math.random() * 9000));
-    var name = document.getElementById("name").value.trim().split(" ")[0];
-    var guests = document.getElementById("guests").value;
-    var time = document.getElementById("time").value;
+    var val = function (id) { return document.getElementById(id).value; };
+    var payload = {
+      name: val("name"), email: val("email"), phone: val("phone"),
+      date: val("date"), time: val("time"), guests: val("guests"),
+      occasion: val("occasion"), notes: val("notes"),
+      terms: document.getElementById("terms").checked,
+      company: val("company")
+    };
+    var button = form.querySelector('button[type="submit"]');
+    var label = button.textContent;
+    button.disabled = true;
+    button.textContent = "Sending request\u2026";
+    form.setAttribute("aria-busy", "true");
 
+    fetch("/api/reserve", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (data) { if (!r.ok || !data.ok) throw new Error(data.error || r.status); return data; }); })
+      .then(function (data) { showConfirmation(payload, data.ref, data.waitlist); })
+      .catch(function () {
+        summary.hidden = false;
+        summary.querySelector("h3").textContent = "We could not send your request";
+        summary.querySelector("ul").innerHTML = "<li>Please try again in a few moments. Your details have not been lost.</li>";
+        summary.focus();
+      })
+      .then(function () {
+        button.disabled = false;
+        button.textContent = label;
+        form.removeAttribute("aria-busy");
+      });
+  });
+
+  function showConfirmation(p, ref, isWait) {
+    var d = fromKey(p.date);
+    var name = p.name.trim().split(" ")[0];
     result.innerHTML =
-      '<p class="eyebrow">Request received &middot; Ref. ' + ref + "</p>" +
+      '<p class="eyebrow">Request received &middot; Ref. ' + escapeHtml(ref) + "</p>" +
       "<h3>" + (isWait ? "You have been placed on the waiting list" : "Thank you, " + escapeHtml(name)) + "</h3>" +
       "<p>" + (isWait
-        ? "We regret that " + longDate(d) + " is fully committed. Your request for " + guests + " at " + time + " has been entered on the waiting list in the order in which it was received."
-        : "Your request for " + guests + " on " + longDate(d) + " at " + time + " has been received.") + "</p>" +
+        ? "We regret that " + longDate(d) + " is fully committed. Your request for " + p.guests + " at " + p.time + " has been entered on the waiting list in the order in which it was received."
+        : "Your request for " + p.guests + " on " + longDate(d) + " at " + p.time + " has been received.") + "</p>" +
       "<p>Please note this is a <em>request</em> and not a confirmed reservation. A member of our reservations team will write to you should a table be confirmed.</p>" +
       '<p class="muted">Please do not telephone.</p>';
     form.hidden = true;
     result.hidden = false;
     result.focus();
-  });
+  }
 
   form.addEventListener("input", function (e) {
     if (e.target.getAttribute("aria-invalid") === "true") {

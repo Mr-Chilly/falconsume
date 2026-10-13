@@ -5,3 +5,6 @@
 00NHrSqpt9W3MeNERJ5ZekkfpOuscfpQj7bLf30QMrq5M5hZqf39vqV6tCddeHDBhe3CLgkDJqT-*.jpg
 2M3lq8hhGOh4ev-g4VtwJVWhy2sxaS1stkzIRCPvCcaM9axSWDnjgV2KAyvK58fFLGaCdbAY-*.jpg
 *.mp4
+
+# Local secrets
+.env*
