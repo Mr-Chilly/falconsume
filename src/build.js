@@ -10,9 +10,9 @@ const url = (file) => (file === "index.html" ? "/" : "/" + file.replace(/\.html$
 
 const NAV = [
   ["index.html", "Home"],
-  ["menu.html", "The Menu"],
-  ["chef.html", "The Chef"],
   ["mill.html", "The Mill"],
+  ["chef.html", "The Chef"],
+  ["menu.html", "The Menu"],
   ["thanks.html", "With Thanks"],
 ];
 

@@ -1092,3 +1092,5 @@ main:focus { outline: none; }
 .on-mid .egg-facts { border-color: var(--line-light); }
 .on-mid .egg-facts dt { color: var(--gold); }
 .on-mid .egg-facts dd small { color: var(--muted-light); }
+.gallery li:only-child { max-width: 44rem; }
+.gallery li:only-child img { aspect-ratio: 4 / 3; }
