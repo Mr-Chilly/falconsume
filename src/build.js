@@ -156,7 +156,6 @@ ${p.noindex ? '  <meta name="robots" content="noindex">\n' : `  <link rel="canon
   <meta name="twitter:image" content="${abs("/assets/img/og-image.jpg")}">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png">
   <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
   <link rel="preload" href="/assets/fonts/cormorant-garamond.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/jost.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="/assets/fonts/cormorant-garamond-italic.woff2" as="font" type="font/woff2" crossorigin>
@@ -256,17 +255,4 @@ Disallow: /api/
 Sitemap: ${abs("/sitemap.xml")}
 `);
 
-fs.writeFileSync(path.join(OUT, "site.webmanifest"), JSON.stringify({
-  name: "Fal-consumé",
-  short_name: "Fal-consumé",
-  description: "Fine dining on the top floor of the East Mill, Belper.",
-  start_url: "/",
-  display: "standalone",
-  background_color: "#13110e",
-  theme_color: "#13110e",
-  icons: [
-    { src: "/assets/img/icon-192.png", sizes: "192x192", type: "image/png" },
-    { src: "/assets/img/icon-512.png", sizes: "512x512", type: "image/png" },
-  ],
-}, null, 2) + "\n");
-console.log("wrote sitemap.xml, robots.txt, site.webmanifest");
+console.log("wrote sitemap.xml, robots.txt");

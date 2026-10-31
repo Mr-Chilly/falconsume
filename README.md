@@ -24,7 +24,7 @@ npx serve .
 
 ## SEO
 
-`src/build.js` also writes `sitemap.xml`, `robots.txt` and `site.webmanifest`, and adds canonical URLs, social-share tags and schema.org structured data (Restaurant, Menu, Person, breadcrumbs) to each page. All absolute URLs come from `SITE_URL` at the top of `src/build.js`; change it when the custom domain is live, rebuild and push.
+`src/build.js` also writes `sitemap.xml` and `robots.txt`, and adds canonical URLs, social-share tags and schema.org structured data (Restaurant, Menu, Person, breadcrumbs) to each page. All absolute URLs come from `SITE_URL` at the top of `src/build.js`; change it when the custom domain is live, rebuild and push.
 
 ## Structure
 
@@ -35,18 +35,6 @@ npx serve .
 - `assets/img/` – photography and logos; credits on `mill.html#credits`
 - `12398.jpg`, `12399.jpg` – original logo artwork
 
-- `api/reserve.js` – Vercel Function that emails reservation requests
-
 ## Reservation requests
 
-The booking form posts to `/api/reserve`, which validates the request and emails it to the restaurant via [Resend](https://resend.com). Requests for fully booked evenings are marked as waiting-list entries. Replying to the email replies to the guest.
-
-Set these in Vercel → Project → Settings → Environment Variables, then redeploy:
-
-| Variable | Value |
-| --- | --- |
-| `RESEND_API_KEY` | API key from resend.com |
-| `RESERVATIONS_TO` | Inbox for requests (comma-separate for several) |
-| `RESERVATIONS_FROM` | Sender on a domain verified in Resend, e.g. `Fal-consumé <reservations@yourdomain>` |
-
-Without `RESERVATIONS_FROM`, Resend's test sender is used, which only delivers to the email address on your Resend account.
+The booking form sends nothing anywhere. A valid submission opens a popup saying the request does not meet our requirements and has been automatically deleted.

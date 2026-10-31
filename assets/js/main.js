@@ -175,7 +175,6 @@
   /* Form ---------------------------------------------------------------- */
   var form = document.getElementById("reservation-form");
   var summary = document.getElementById("error-summary");
-  var result = document.getElementById("form-result");
 
   var EMAIL = /^[^\s@]+@[^\s@.]+(\.[^\s@.]+)*\.[a-z]{2,}$/i;
   var rules = [
@@ -223,47 +222,15 @@
       terms: document.getElementById("terms").checked,
       company: val("company")
     };
-    var button = form.querySelector('button[type="submit"]');
-    var label = button.textContent;
-    button.disabled = true;
-    button.textContent = "Sending request\u2026";
-    form.setAttribute("aria-busy", "true");
-
-    fetch("/api/reserve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
-    })
-      .then(function (r) { return r.json().catch(function () { return {}; }).then(function (data) { if (!r.ok || !data.ok) throw new Error(data.error || r.status); return data; }); })
-      .then(function (data) { showConfirmation(payload, data.ref, data.waitlist); })
-      .catch(function () {
-        summary.hidden = false;
-        summary.querySelector("h3").textContent = "We could not send your request";
-        summary.querySelector("ul").innerHTML = "<li>Please try again in a few moments. Your details have not been lost.</li>";
-        summary.focus();
-      })
-      .then(function () {
-        button.disabled = false;
-        button.textContent = label;
-        form.removeAttribute("aria-busy");
-      });
+    // Requests are never sent anywhere: every one is declined on the spot.
+    var modal = document.getElementById("rejection");
+    if (modal.showModal) modal.showModal(); else modal.setAttribute("open", "");
+    modal.querySelector("button").focus();
   });
 
-  function showConfirmation(p, ref, isWait) {
-    var d = fromKey(p.date);
-    var name = p.name.trim().split(" ")[0];
-    result.innerHTML =
-      '<p class="eyebrow">Request received &middot; Ref. ' + escapeHtml(ref) + "</p>" +
-      "<h3>" + (isWait ? "You have been placed on the waiting list" : "Thank you, " + escapeHtml(name)) + "</h3>" +
-      "<p>" + (isWait
-        ? "We regret that " + longDate(d) + " is fully committed. Your request for " + p.guests + " at " + p.time + " has been entered on the waiting list in the order in which it was received."
-        : "Your request for " + p.guests + " on " + longDate(d) + " at " + p.time + " has been received.") + "</p>" +
-      "<p>Please note this is a <em>request</em> and not a confirmed reservation. A member of our reservations team will write to you should a table be confirmed.</p>" +
-      '<p class="muted">Please do not telephone.</p>';
-    form.hidden = true;
-    result.hidden = false;
-    result.focus();
-  }
+  document.getElementById("rejection").addEventListener("close", function () {
+    form.reset();
+  });
 
   form.addEventListener("focusout", function (e) {
     var r = rules.filter(function (x) { return x.id === e.target.id; })[0];

@@ -154,7 +154,15 @@
         </div>
       </form>
 
-      <div id="form-result" class="form-status" tabindex="-1" role="status" hidden></div>
+      <dialog id="rejection" class="dialog" aria-labelledby="rejection-title">
+        <form method="dialog">
+          <p class="eyebrow">Request declined</p>
+          <h3 id="rejection-title">Your request does not meet our requirements</h3>
+          <p>It has been automatically deleted. No record of it has been kept, and no further correspondence will be entered into.</p>
+          <p class="muted">Please do not telephone.</p>
+          <button class="btn btn--solid">Understood</button>
+        </form>
+      </dialog>
     </div>
   </div>
 </section>

@@ -852,6 +852,17 @@ blockquote footer, blockquote cite {
   .check input[type="checkbox"] { -webkit-appearance: auto; appearance: auto; }
 }
 
+.dialog {
+  border: 1px solid var(--gold);
+  background: var(--ink-2);
+  color: inherit;
+  padding: 2.5rem;
+  max-width: min(32rem, calc(100vw - 2rem));
+}
+.dialog::backdrop { background: rgba(19, 17, 14, .8); }
+.dialog h3 { margin-bottom: .5em; }
+.dialog .btn { margin-top: 1rem; }
+
 .form-status {
   border: 1px solid var(--gold);
   padding: 2rem;
@@ -1067,3 +1078,17 @@ main:focus { outline: none; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form-privacy { margin-top: 1rem; font-size: .95rem; color: var(--muted-light); }
 .btn:disabled { opacity: .6; cursor: progress; }
+
+.gallery {
+  list-style: none;
+  margin: clamp(4rem, 8vw, 6rem) 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+.gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; filter: saturate(.8); }
+.gallery p { margin: .75rem 0 0; font-family: var(--sans); font-size: .72rem; letter-spacing: .06em; color: var(--muted-light); }
+.on-mid .egg-facts { border-color: var(--line-light); }
+.on-mid .egg-facts dt { color: var(--gold); }
+.on-mid .egg-facts dd small { color: var(--muted-light); }
